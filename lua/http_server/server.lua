@@ -1,12 +1,18 @@
 local server_job_id = nil
 
+function is_server_running()
+    local result = vim.fn.systemlist("ps aux | grep '[p]ython3 -m http.server'")
+    return #result > 0  -- If there's at least one process, it means the server is running
+end
+
 function StartHttpServer()
-    if server_job_id and server_job_id > 0 then
+    if is_server_running() then
         print("Python HTTP server is already running.")
         return
     end
 
     local command = {"python3", "-m", "http.server", "8000"}
+
     server_job_id = vim.fn.jobstart(command, {
         on_exit = function(_, code)
             if code == 0 then
@@ -31,11 +37,12 @@ function StopHttpServer()
         return
     end
 
-    vim.fn.system("pkill -f python3 -m http.server")
+    vim.fn.jobstop(server_job_id)
     print("Python HTTP server stopped.")
     server_job_id = nil
 end
 
+-- Register commands
 vim.api.nvim_create_user_command("StartHTTPServer", function ()
     StartHttpServer()
 end, {})
