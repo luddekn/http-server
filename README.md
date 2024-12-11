@@ -8,3 +8,12 @@ lazy.vim
     "luddekn/http-server"
 }
 ```
+# Usage
+Starting HTTP server:
+```
+:StartHttpServer
+```
+Stop HTTP server:
+```
+:StopHttpServer
+```
