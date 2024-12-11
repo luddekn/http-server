@@ -1,9 +1,9 @@
 # HTTP Server
-Start a Python HTTP server for your projects, like live server for VSCode but without the live part.
+Plugin for starting and stopping a Python HTTP server using nvim. Similar to live server from VSCode, but does not update on save, you need to manually refresh!
 
 # Installation
 lazy.vim
-```
+```lua
 {
     "luddekn/http-server"
 }
